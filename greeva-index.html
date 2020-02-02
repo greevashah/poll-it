@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- <script type="text/javascript" src="index.js"></script> -->
+    <style>
+        .container{
+            padding: 10rem;
+            margin: auto;   /*for center alignment*/
+        }
+        .center{
+
+        }
+    </style>
+    <script type="text/javascript">
+    var urls=[]
+    $(document).ready(function(){
+        $.ajax({
+            url: "https://rss.app/feeds/n46ShHa0AovxUOp4.xml",
+            method: "GET",
+            dataType: "xml",
+            success: function(item) {
+                $(item).find("item").each(function(){
+                    var ele=$(this);
+                    // var imageUrl= ele.find("media").attr('url');
+                    var imageUrl = "https:"+ele.find('media\\:content, content').attr('url');
+                    urls.push(imageUrl);
+                    // document.body.style.backgroundImage="url('" + imageUrl + "')";
+                    // 
+                    // console.log("media: "+imageUrl);
+                });
+                changeImage();
+            }
+        });
+        window.setInterval(changeImage, 10000);
+    });
+
+    function changeImage() {   
+            // console.log(urls);
+            var i = Math.floor(Math.random()*urls.length);
+            $("body").css({"background-image": "url(" + urls[i] + ")", "background-repeat": "no-repeat","background-size":"cover","background-position":"right top","background-attachment": "fixed"});
+            // document.body.style.backgroundImage = "url('" + urls[i] + "')";
+            // document.body.style.backgroundRepeat= "no-repeat";
+            // document.body.style.backgroundSize="cover";
+    }
+    </script>
+</head>
+<body>
+    <div class="container center">
+        <form>
+            <button type="button" class="btn btn-dark">Create Poll</button>
+            <button type="button" class="btn btn-dark">Join Poll</button>
+            <br>
+            <input type="text" placeholder="Enter Code">
+            <input class="btn btn-info" type="submit" value="Go">
+        </form>
+    </div>
+</body>
+</html>
