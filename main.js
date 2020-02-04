@@ -3,7 +3,7 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
        // Typical action to be performed when the document is ready:
        var quote_response = JSON.parse(xhttp.responseText);
-       var content = document.getElementById("content");
+       
        console.log(quote_response)
        content.innerHTML = quote_response.value.joke;
        var loader = document.getElementById("loader");
@@ -13,8 +13,14 @@ xhttp.onreadystatechange = function() {
 };
 
 var reload = ()=> {
+    var content = document.getElementById("content");
     var loader = document.getElementById("loader");
     loader.style.display = "block";
-    xhttp.open("GET", "http://api.icndb.com/jokes/random", true);
-    xhttp.send();
+    content.style.display = "none";
+    xhttp.open("GET", " ", true); // add api here + authorization
+    xhttp.send(); 
 }
+
+$(document).ready(function(){ 
+    reload();
+});

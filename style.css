@@ -6,7 +6,9 @@ html{
 }
 body{
     transition: background-color 1s ease-out;
-    background-color: rgb(39, 158, 212);
+    background: #aa076b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #aa076b, #61045f); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #aa076b, #61045f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     height: 100%;
     width: 100%;
     margin: 0;
@@ -29,6 +31,11 @@ body{
 #content{
     font-family: 'Bungee Inline', cursive;
     display: none;
+    margin-top: 20%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+    box-shadow: 4px 5px #000000;
 }
 
 #title{
@@ -38,11 +45,11 @@ body{
     text-align: center;
     font-size: 250%;
     font-family: 'Bungee Inline', cursive;
-    color: rgb(39, 158, 212);
+    color: rgb(0, 0, 0);
 }
 
 .btn{
-    background-color: rgb(39, 158, 212);
+    background-color: rgb(0, 0, 0);
     font-family: 'Bungee Inline', cursive;
     width: 20%;
     border-width: 3px;
