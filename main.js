@@ -17,8 +17,8 @@ var reload = ()=> {
     var loader = document.getElementById("loader");
     loader.style.display = "block";
     content.style.display = "none";
-    xhttp.open("GET", " ", true); // add api here + authorization
-    xhttp.send(); 
+    xhttp.open("GET", "http://api.icndb.com/jokes/random", true);
+    xhttp.send();
 }
 
 $(document).ready(function(){ 
