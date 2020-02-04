@@ -1,0 +1,13 @@
+<script>
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(xhttp.responseText)
+            }
+        }
+        
+        xhttp.open("GET","https://jokeapi.p.rapidapi.com/category/Programming?format=json");
+        xhttp.setRequestHeader("x-rapidapi-host", "jokeapi.p.rapidapi.com");
+        xhttp.setRequestHeader("x-rapidapi-key", "1c40dc089cmshc7a37fbefcee483p1e6d3ejsncbc9f3db0a70");
+        xhttp.send(data);
+</script>
