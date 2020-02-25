@@ -1,0 +1,24 @@
+{
+  "name": "poll-it",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greevashah/poll-it.git"
+  },
+
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greevashah/poll-it/issues"
+  },
+  "homepage": "https://github.com/greevashah/poll-it#readme",
+  "dependencies": {
+    "nodemon": "^2.0.2",
+    "express": "4.17.1"
+  }
+}
