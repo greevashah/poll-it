@@ -11,7 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/greevashah/poll-it.git"
   },
-
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -19,7 +18,9 @@
   },
   "homepage": "https://github.com/greevashah/poll-it#readme",
   "dependencies": {
-    "nodemon": "^2.0.2",
-    "express": "4.17.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.6",
+    "nodemon": "^2.0.2"
   }
 }
