@@ -1,0 +1,17 @@
+<h2>Poll</h2>
+<!-- #createForm="ngForm" -->
+<form  #pollForm="ngForm"  (ngSubmit)="submitFunc(pollForm.value)">
+    <div class="form-group">
+        <br>Question: {{ question }}
+        <br><br>
+        Choose Option:
+        <div *ngFor="let op of options;index as i">
+            <input ngModel type="radio" name="options" value="option{{ i }}" >
+            {{ op }}
+            <br>
+        </div>
+        <br>
+        <button (click)="pollForm.reset()" >Reset</button>
+        <button type="submit"> Submit</button>
+    </div>
+</form>

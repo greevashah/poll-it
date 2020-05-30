@@ -1,0 +1,20 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthServiceService {
+
+  private url = `http://localhost:8080`;
+  // Node url
+  constructor(private http: HttpClient) { }
+
+  login(value) {
+    return this.http.post<any>(`${this.url}/auth/login`, value);
+  }
+
+  signup(value) {
+    return this.http.post<any>(`${this.url}/auth/signup`, value);
+  }
+}
