@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 import { VotePollService } from '../vote-poll.service';
@@ -20,7 +21,7 @@ export class CreatePollComponent implements OnInit {
   addOption(){
     return this.options.push(this.fb.control(''));
   }
-  constructor(private fb: FormBuilder, private votePoll: VotePollService) {
+  constructor(private fb: FormBuilder, private votePoll: VotePollService, private Router:Router) {
    }
 
   ngOnInit(): void {
@@ -35,6 +36,8 @@ export class CreatePollComponent implements OnInit {
     console.log(form.value);
     this.votePoll.createPoll(form.value).subscribe(res => {
       console.log('res:', res);
+      location.reload();
+      // this.Router.navigate(['home'])
     }, err => {
         console.log('error:', err);
     });

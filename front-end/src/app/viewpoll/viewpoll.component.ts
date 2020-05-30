@@ -1,3 +1,6 @@
+import { AuthServiceService } from './../auth-service.service';
+import { Router } from '@angular/router';
+import { VotePollService } from './../vote-poll.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,13 +9,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./viewpoll.component.css']
 })
 export class ViewpollComponent implements OnInit {
-  public question: string = "Some question to be asked";
-  public options=["option1","option2","option3","option4"];
-  constructor() { }
+  public name:string;
+  public creator:string;
+  public question: string;
+  public options;
+  public code:string;
+
+  constructor(private votePoll:VotePollService, private Router:Router, private auth: AuthServiceService) {
+    this.name=votePoll.pollname;
+    this.creator=votePoll.creator;
+    this.question=votePoll.question;
+    this.options=votePoll.options;
+    this.code=votePoll.code;
+   }
 
   ngOnInit(): void {
   }
+  
   submitFunc(value){
-    console.log(value);
+    // console.log(value);
+    this.votePoll.votePoll(this.code, value.option).subscribe(res => {
+      console.log('res:', res);
+      this.auth.voted(this.code).subscribe(res=>{
+        console.log('vote and code added');
+        this.Router.navigate(['home'])
+      }, er =>{
+        console.log("error in adding code to user")
+      });
+    }, err => {
+        console.log('error in adding vote:', err);
+    });
   }
 }

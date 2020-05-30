@@ -17,4 +17,13 @@ export class AuthServiceService {
   signup(value) {
     return this.http.post<any>(`${this.url}/auth/signup`, value);
   }
+
+  voted(value){
+    console.log("Value is ",value);
+    return this.http.post<any>(`${this.url}/auth/voted`, value);
+  }
+
+  checkVoted(value){
+    return this.http.post<any>(`${this.url}/auth/checkvoted`, value);
+  }
 }

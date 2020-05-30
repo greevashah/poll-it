@@ -21,7 +21,8 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res)=>{
     // ToDo formatting of req.body
     const { name, question, options } = req.body;
     const code = makeCode(5);
-    const creator = "nurdtechie98";
+    console.log("Code is: ", code);
+    const creator = req.cookies.userID;
     const options_final = options.map(option=>{
         return [option,[]]
     })
@@ -38,14 +39,14 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res)=>{
 router.post('/vote/:code/:val',onlyAuthenticated, async(req,res)=>{
     try {
         let poll = await Poll.findOne({code:req.params.code}).exec();
-        poll.Option[req.params.val][2].push(req.cookies.get('userID'));
+        poll.option[req.params.val][1].push(req.cookies.userID);
         Poll.findOneAndUpdate({code: req.params.code}, poll, (err,doc)=>{
             if(err){
                 console.log(err);
                 res.send(500).json("db update error");
             }
             console.log("vote has been added");
-            res.send(200).json("vote has been added");
+            res.status(200).json("vote has been added");
         });
     } catch (err) {
         res.status(500).send(err);
