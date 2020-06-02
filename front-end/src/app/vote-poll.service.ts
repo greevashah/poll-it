@@ -25,8 +25,6 @@ export class VotePollService {
   }
 
   viewPoll(value){
-    var url=`${this.url}/result/${value}`;
-    console.log(url);
     return this.http.get<any>(`${this.url}/result/${value}`);
   }
 

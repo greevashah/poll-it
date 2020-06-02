@@ -16,24 +16,25 @@ export class ViewpollComponent implements OnInit {
   public code:string;
 
   constructor(private votePoll:VotePollService, private Router:Router, private auth: AuthServiceService) {
-    this.name=votePoll.pollname;
-    this.creator=votePoll.creator;
-    this.question=votePoll.question;
-    this.options=votePoll.options;
-    this.code=votePoll.code;
+    this.name = votePoll.pollname;
+    this.creator = votePoll.creator;
+    this.question = votePoll.question;
+    this.options = votePoll.options;
+    this.code = votePoll.code;
    }
 
   ngOnInit(): void {
   }
-  
+
   submitFunc(value){
     // console.log(value);
     this.votePoll.votePoll(this.code, value.option).subscribe(res => {
       console.log('res:', res);
-      this.auth.voted(this.code).subscribe(res=>{
+      this.auth.voted(this.code).subscribe(result => {
         console.log('vote and code added');
-        this.Router.navigate(['home'])
-      }, er =>{
+        this.votePoll.initialise(res);
+        this.Router.navigate(['result']);
+      }, er => {
         console.log("error in adding code to user")
       });
     }, err => {

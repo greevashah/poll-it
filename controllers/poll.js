@@ -46,7 +46,7 @@ router.post('/vote/:code/:val',onlyAuthenticated, async(req,res)=>{
                 res.send(500).json("db update error");
             }
             console.log("vote has been added");
-            res.status(200).json("vote has been added");
+            res.status(200).json(poll);
         });
     } catch (err) {
         res.status(500).send(err);

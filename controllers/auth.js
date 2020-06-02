@@ -13,6 +13,7 @@ router.post('/voted', onlyAuthenticated, async(req,res)=>{
     const { code }=req.body;
     let user= await User.findOne({userID: userID}).exec();
     user.voted.push(code);
+    console.log(`voted user ${code}:`,user);
     User.findOneAndUpdate({userID: userID}, user, (err,doc)=>{
         if(err){
             console.log(err);
@@ -25,8 +26,9 @@ router.post('/voted', onlyAuthenticated, async(req,res)=>{
 
 router.post('/checkvoted', onlyAuthenticated, async(req,res)=>{
     const userID= req.cookies.userID;
-    const { code }=req.body;
+    const { code } = req.body;
     let user= await User.findOne({userID: userID}).exec();
+    console.log(`check voted user ${code}:`,user)
     if(user.voted.includes(code)){
         // Already Voted
         res.status(200).json("VOTED");

@@ -20,10 +20,10 @@ export class AuthServiceService {
 
   voted(value){
     console.log("Value is ",value);
-    return this.http.post<any>(`${this.url}/auth/voted`, value);
+    return this.http.post<any>(`${this.url}/auth/voted`, { 'code' : value});
   }
 
   checkVoted(value){
-    return this.http.post<any>(`${this.url}/auth/checkvoted`, value);
+    return this.http.post<any>(`${this.url}/auth/checkvoted`, { 'code' : value});
   }
 }

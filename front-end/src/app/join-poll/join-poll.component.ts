@@ -1,7 +1,7 @@
 import { AuthServiceService } from './../auth-service.service';
 import { Router } from '@angular/router';
 import { VotePollService } from './../vote-poll.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-join-poll',
@@ -15,14 +15,19 @@ export class JoinPollComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @Output() sendErrorMessage = new EventEmitter<string>();
+
   submitFunc(value){
-    this.code=value.code;
+    this.code = value.code;
+    console.log(value.code);
     this.votePoll.viewPoll(value.code).subscribe(res => {
       // console.log('In join, res:', res);
       this.auth.checkVoted(value.code).subscribe( response =>{
         if(response == "VOTED"){
           console.log("Already voted");
-          location.reload();
+          this.votePoll.initialise(res);
+          this.Router.navigate(['result']);
         }
         else if(response == "NOT VOTED"){
           console.log("Not voted");

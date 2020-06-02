@@ -15,6 +15,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ViewpollComponent } from './viewpoll/viewpoll.component';
 import { CustomInterceptor } from './interceptor';
+import { ResutlDisplayComponent } from './resutl-display/resutl-display.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,14 +28,17 @@ import { CustomInterceptor } from './interceptor';
     LoginComponent,
     SignUpComponent,
     HomepageComponent,
-    ViewpollComponent
+    ViewpollComponent,
+    ResutlDisplayComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

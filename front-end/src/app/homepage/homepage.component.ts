@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomepageComponent implements OnInit {
 
   constructor() { }
+  error_message = ``;
 
   ngOnInit(): void {
   }
 
+  setErrorMessage = (error_message) => {
+    this.error_message = error_message;
+  }
 }
