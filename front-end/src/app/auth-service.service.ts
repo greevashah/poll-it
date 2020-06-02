@@ -18,6 +18,12 @@ export class AuthServiceService {
     return this.http.post<any>(`${this.url}/auth/signup`, value);
   }
 
+  logout() {
+    return this.http.get<any>(`${this.url}/auth/logout`);
+  }
+  created(value){
+    return this.http.post<any>(`${this.url}/auth/created`, { 'code' : value})
+  }
   voted(value){
     console.log("Value is ",value);
     return this.http.post<any>(`${this.url}/auth/voted`, { 'code' : value});

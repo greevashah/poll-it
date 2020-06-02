@@ -7,6 +7,21 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var { onlyAuthenticated } = require('../middlewares/auth');
 
+router.post('/created', onlyAuthenticated, async(req,res)=>{
+    const userID= req.cookies.userID;
+    const { code }=req.body;
+    let user= await User.findOne({userID: userID}).exec();
+    user.created.push(code);
+    User.findOneAndUpdate({userID: userID}, user, (err,doc)=>{
+        if(err){
+            console.log(err);
+            res.send(500).json("user db update error");
+        }
+        console.log("code has been added for creator user");
+        res.status(200).json("creator code added");
+    });
+});
+
 router.post('/voted', onlyAuthenticated, async(req,res)=>{
     const userID= req.cookies.userID;
     // console.log("req.body: ",req.body);
@@ -75,7 +90,7 @@ router.post('/login',async(req,res)=>{
 router.get('/logout', onlyAuthenticated , async (req, res) => {
     try {
         res.clearCookie('userID');
-        res.status(200).json('logged out')
+        res.status(200).json("logged out");
     } catch (err) {
         console.log(err);
         res.status(500).send(err);

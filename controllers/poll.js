@@ -16,7 +16,6 @@ const makeCode = (length)=> {
     return result;
 }
  
-
 router.post('/createPoll', onlyAuthenticated ,async (req,res)=>{
     // ToDo formatting of req.body
     const { name, question, options } = req.body;
@@ -29,7 +28,8 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res)=>{
     const poll = new Poll({code,name,question,option:options_final,creator});
     try {
     await poll.save();
-    res.status(200).json("poll created");
+    console.log(poll);
+    res.status(200).json(poll);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
