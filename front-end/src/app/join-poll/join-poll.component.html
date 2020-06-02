@@ -1,0 +1,6 @@
+<h1>Join Poll</h1>
+<form #joinForm="ngForm" (ngSubmit)="submitFunc(joinForm.value)">
+    Code: <input ngModel type="text" name="code" required>
+    <br><br>
+    <button type="submit" [style.display]="joinForm.valid? 'block': 'none'"> Submit</button>
+</form>

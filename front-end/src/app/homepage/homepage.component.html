@@ -1,0 +1,21 @@
+<div class="main-content">
+    <input type="hidden" #selection>
+    <p>{{ error_message }}</p>
+    <div class="card-container">
+      <div class="card card-small" (click)="selection.value = 'create-poll'" tabindex="0" >
+          <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        <span>Create Poll</span>
+      </div>
+
+      <div class="card card-small" (click)="selection.value = 'join-poll'" tabindex="0">
+          <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+        <span>Join Poll</span>
+      </div>
+    </div>
+
+    <div [ngSwitch]="selection.value">
+      <pre *ngSwitchDefault>Hi there!</pre>
+      <pre *ngSwitchCase="'create-poll'"><app-create-poll></app-create-poll></pre>
+      <pre *ngSwitchCase="'join-poll'"><app-join-poll (sendErrorMessage)='setErrorMessage($event)' ></app-join-poll></pre>
+    </div>
+</div>
