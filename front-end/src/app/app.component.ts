@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthServiceService } from './auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,10 @@ import { AuthServiceService } from './auth-service.service';
 })
 export class AppComponent {
   title = 'second-app';
-  constructor(private auth: AuthServiceService){}
+  constructor(private auth: AuthServiceService, private Router: Router ){}
   logout(){
     console.log("logout getting called");
+    this.Router.navigate(['login']);
     this.auth.logout().subscribe(
       res => {
         console.log(res);
