@@ -15,5 +15,6 @@ export class HomepageComponent implements OnInit {
 
   setErrorMessage = (error_message) => {
     this.error_message = error_message;
+
   }
 }

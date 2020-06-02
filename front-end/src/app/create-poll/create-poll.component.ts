@@ -1,6 +1,6 @@
 import { AuthServiceService } from './../auth-service.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 import { VotePollService } from '../vote-poll.service';
 
@@ -12,8 +12,10 @@ import { VotePollService } from '../vote-poll.service';
 export class CreatePollComponent implements OnInit {
   public question: string;
   // public option=[];
-  public count: number=0;
+  public count: number = 0;
   public createForm: FormGroup;
+
+  @Output() sendErrorMessage = new EventEmitter<string>();
 
   get options(){
     return this.createForm.get('options') as FormArray
@@ -39,9 +41,11 @@ export class CreatePollComponent implements OnInit {
       console.log('res:', res);
       this.auth.created(res.code).subscribe(result => {
         console.log(result);
-        location.reload();
+        var message = 'New poll created with code ' + res.code;
+        console.log("message:",message);
+        this.sendErrorMessage.emit(message);
+        this.Router.navigate(['home']);
       });
-      // this.Router.navigate(['home'])
     }, err => {
         console.log('error:', err);
     });
