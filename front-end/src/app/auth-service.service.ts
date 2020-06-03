@@ -7,7 +7,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 })
 export class AuthServiceService {
 
-  private url = `http://localhost:8080`;
+  private url = `https://pol-lit.herokuapp.com`;
   private loggedIn: BehaviorSubject<boolean>;
   // Node url
   constructor(private http: HttpClient) {

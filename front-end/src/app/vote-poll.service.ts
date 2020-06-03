@@ -12,7 +12,7 @@ export class VotePollService {
   public code:string;
 
 
-  private url = `http://localhost:8080/poll`;
+  private url = `https://pol-lit.herokuapp.com/poll`;
   constructor(private http: HttpClient) { }
 
   initialise(value){
