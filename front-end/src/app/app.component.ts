@@ -9,9 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'second-app';
-  constructor(private auth: AuthServiceService, private Router: Router ){}
-  logout(){
-    console.log("logout getting called");
+  public loggedIn = false;
+  constructor(public auth: AuthServiceService, private Router: Router ){
+    this.auth.getValue().subscribe((value) => {
+      this.loggedIn = value;
+    });
+  }
+  logout() {
+    this.auth.setValue(false);
     this.Router.navigate(['login']);
     this.auth.logout().subscribe(
       res => {

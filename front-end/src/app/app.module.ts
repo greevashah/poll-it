@@ -18,7 +18,6 @@ import { CustomInterceptor } from './interceptor';
 import { ResutlDisplayComponent } from './resutl-display/resutl-display.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +29,7 @@ import { LogoutComponent } from './logout/logout.component';
     SignUpComponent,
     HomepageComponent,
     ViewpollComponent,
-    ResutlDisplayComponent,
-    LogoutComponent
+    ResutlDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -2,9 +2,13 @@
 <div class="toolbar" role="banner">
   <h1>Poll It!</h1>
   <div class="spacer"></div>
-  <a routerLink="/login">Login</a>
-  <a routerLink="/signup">SignUp</a>
-  <a (click)="logout()">Logout</a>
+  <div *ngIf="!loggedIn">
+    <a  routerLink="/login">Login</a>
+    <a  routerLink="/signup">SignUp</a>
+  </div >
+  <div *ngIf="loggedIn">
+    <a (click)="logout()">Logout</a>
+  </div>
 </div>
 
 <div class="content" role="main">

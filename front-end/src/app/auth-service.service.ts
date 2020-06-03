@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,18 @@ import { HttpClient } from '@angular/common/http';
 export class AuthServiceService {
 
   private url = `http://localhost:8080`;
+  private loggedIn: BehaviorSubject<boolean>;
   // Node url
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loggedIn = new BehaviorSubject<boolean>(false);
+  }
+
+  getValue(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+  setValue(newValue): void {
+    this.loggedIn.next(newValue);
+  }
 
   login(value) {
     return this.http.post<any>(`${this.url}/auth/login`, value);
@@ -25,7 +36,6 @@ export class AuthServiceService {
     return this.http.post<any>(`${this.url}/auth/created`, { 'code' : value})
   }
   voted(value){
-    console.log("Value is ",value);
     return this.http.post<any>(`${this.url}/auth/voted`, { 'code' : value});
   }
 

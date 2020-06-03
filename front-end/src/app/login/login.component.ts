@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     console.log(`In login `, value);
     this.auth.login(value).subscribe(res => {
       console.log(res);
+      this.auth.setValue(true);
       this.Router.navigate(['home']);
     },
     err => {

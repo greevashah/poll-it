@@ -1,4 +1,3 @@
-import { LogoutComponent } from './logout/logout.component';
 import { ViewpollComponent } from './viewpoll/viewpoll.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -16,8 +15,7 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'signup',component: SignUpComponent},
   {path:'viewpoll', component: ViewpollComponent},
-  {path:'result', component: ResutlDisplayComponent},
-  {path:'logout', component: LogoutComponent}
+  {path:'result', component: ResutlDisplayComponent}
 ];
 
 @NgModule({

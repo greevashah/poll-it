@@ -1,8 +1,6 @@
 <h1>Create Poll</h1>
 <!-- #createForm="ngForm" -->
 <form  [formGroup]="createForm" (ngSubmit)="submitFunc(createForm)">
-    {{ createForm.value | json }}
-
     <div class="form-group">
         <br>Name: <input formControlName="name" type="text" name="name" required>
         <br>Question: <input formControlName="question" type="text" name="question" required>
