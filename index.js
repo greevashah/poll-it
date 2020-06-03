@@ -7,7 +7,8 @@ var cookieParser = require('cookie-parser');
 var auth = require('./controllers/auth');
 var poll = require('./controllers/poll');
 
-var PORT=process.env.PORT|8080;
+// var PORT=process.env.PORT|8080;
+process.env.PORT = process.env.PORT ? process.env.PORT : 8080;
 
 app.use(cors({origin: [
     "http://localhost:4200"
@@ -26,12 +27,7 @@ app.get('/fun-page',(req,res)=>{
 app.use('/auth',auth);
 app.use('/poll',poll);
 
-
-var server= app.listen(PORT,(e)=>{
-    var host= server.address().address;
-    var port= server.address().port;
-    console.log("Add:", host);
-    console.log("Port", port);
+app.listen(process.env.PORT,(e)=>{
     mongoose.connect("mongodb+srv://root:1234@poll-it-bwvcs.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
