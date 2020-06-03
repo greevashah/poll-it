@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var auth = require('./controllers/auth');
 var poll = require('./controllers/poll');
 
+var PORT=process.env.PORT|8080;
 
 app.use(cors({origin: [
     "http://localhost:4200"
@@ -22,15 +23,11 @@ app.get('/fun-page',(req,res)=>{
     res.sendFile(__dirname+'/static/funpage.html');
 });
 
-app.get('/',(req,res)=>{
-    res.send("You're in POll-it");
-})
-
 app.use('/auth',auth);
 app.use('/poll',poll);
 
 
-var server= app.listen(8080,(e)=>{
+var server= app.listen(PORT,(e)=>{
     var host= server.address().address;
     var port= server.address().port;
     console.log("Add:", host);
