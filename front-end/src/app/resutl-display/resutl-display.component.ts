@@ -23,7 +23,8 @@ export class ResutlDisplayComponent implements OnInit {
     this.options = this.votePoll.options;
     this.code = this.votePoll.code;
   }
-  view: any[] = [600, 400];
+  view: any[] = [600, 200];
+  cardView: any[] = [600, 150];
   showXAxis = true;
   showYAxis = true;
   gradient = false;

@@ -1,3 +1,5 @@
+<h1>{{ question }}</h1>
+<p>by: {{ creator }}</p>
 <p>
   <ngx-charts-bar-horizontal
   [view]="view"
@@ -13,4 +15,16 @@
   [yAxisLabel]="yAxisLabel"
   >
   </ngx-charts-bar-horizontal>
+  <ngx-charts-gauge
+  [view]="view"
+  [scheme]="colorScheme"
+  [results]="data"
+  [max]="5"
+  >
+  </ngx-charts-gauge>
+  <ngx-charts-number-card
+  [view]="cardView"
+  [scheme]="colorScheme"
+  [results]="data">
+  </ngx-charts-number-card>
 </p>
