@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(value).subscribe(res => {
       console.log(res);
       this.auth.setValue(true);
+      this.auth.setPolls(res);
       this.Router.navigate(['home']);
     },
     err => {

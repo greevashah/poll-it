@@ -18,6 +18,7 @@ import { CustomInterceptor } from './interceptor';
 import { ResutlDisplayComponent } from './resutl-display/resutl-display.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeDisplayComponent } from './home-display/home-display.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignUpComponent,
     HomepageComponent,
     ViewpollComponent,
-    ResutlDisplayComponent
+    ResutlDisplayComponent,
+    HomeDisplayComponent
   ],
   imports: [
     BrowserModule,

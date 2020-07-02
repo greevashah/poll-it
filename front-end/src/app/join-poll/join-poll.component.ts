@@ -44,5 +44,4 @@ export class JoinPollComponent implements OnInit {
         console.log('error:', err);
     });
   }
-
 }

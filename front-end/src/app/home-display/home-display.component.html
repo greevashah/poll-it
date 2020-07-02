@@ -1,0 +1,12 @@
+<h3>Created by you</h3>
+<div *ngFor="let poll of createdPolls; index as i">
+    {{ poll.code }} : {{ poll.name }}
+    <br>
+</div>
+<br>
+<br>
+<h3>Voted by you</h3>
+<div *ngFor="let poll of votedPolls; index as i">
+    {{ poll.code }} : {{ poll.name }}
+    <br>
+</div>

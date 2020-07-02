@@ -14,7 +14,7 @@
     </div>
 
     <div [ngSwitch]="selection.value" *ngIf='showForm'>
-      <pre *ngSwitchDefault>Hi there!</pre>
+      <pre *ngSwitchDefault><app-home-display></app-home-display></pre>
       <pre *ngSwitchCase="'create-poll'"><app-create-poll (sendErrorMessage)='setErrorMessage($event)'></app-create-poll></pre>
       <pre *ngSwitchCase="'join-poll'"><app-join-poll (sendErrorMessage)='setErrorMessage($event)' ></app-join-poll></pre>
     </div>
