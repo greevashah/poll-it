@@ -36,6 +36,7 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res)=>{
   }
 });
 
+// Adding vote in the respective poll
 router.post('/vote/:code/:val',onlyAuthenticated, async(req,res)=>{
     try {
         let poll = await Poll.findOne({code:req.params.code}).exec();
@@ -53,6 +54,7 @@ router.post('/vote/:code/:val',onlyAuthenticated, async(req,res)=>{
     }
 });
 
+// View Poll with the given code
 router.get('/result/:code',onlyAuthenticated, async (req,res)=>{
     try {
         let poll = await Poll.findOne({code:req.params.code}).exec();

@@ -2,11 +2,21 @@ var express = require('express')
 var router = express.Router()
 
 var User = require('../models/user');
+var Poll = require('../models/poll');
 
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var { onlyAuthenticated } = require('../middlewares/auth');
+const poll = require('../models/poll');
 
+//Get respective user data
+router.get('/getdata', onlyAuthenticated, async(req,res)=>{
+    const userID= req.cookies.userID;
+    let user= await User.findOne({userID: userID}).exec();
+    res.status(200).send(user);
+});
+
+// Add poll code in respective user's created array
 router.post('/created', onlyAuthenticated, async(req,res)=>{
     const userID= req.cookies.userID;
     const { code }=req.body;
@@ -22,6 +32,7 @@ router.post('/created', onlyAuthenticated, async(req,res)=>{
     });
 });
 
+// Add poll code in respective user's voted array
 router.post('/voted', onlyAuthenticated, async(req,res)=>{
     const userID= req.cookies.userID;
     // console.log("req.body: ",req.body);
@@ -39,6 +50,7 @@ router.post('/voted', onlyAuthenticated, async(req,res)=>{
     });
 });
 
+// Check if the user has voted for this poll or not
 router.post('/checkvoted', onlyAuthenticated, async(req,res)=>{
     const userID= req.cookies.userID;
     const { code } = req.body;
@@ -68,7 +80,7 @@ router.post('/signup',async (req,res)=>{
   }
 })
 
-router.post('/login',async(req,res)=>{
+router.post('/login', async(req,res)=>{
     try {
         const { userID, password } = req.body;
         // console.log(req.body);
@@ -76,8 +88,21 @@ router.post('/login',async(req,res)=>{
         const hashedPassword = userresult.password;
         const result = await bcrypt.compare(password, hashedPassword);
         if(result === true) {
+            createdPolls = await Poll.find({creator: userresult.userID}).exec();
+            votedPolls = await Poll.find({
+                "option": { 
+                    "$elemMatch": {
+                        "1": {"$in": [userresult.userID] }
+                    }
+                }
+            }).exec();
+
+            userPolls = {"created": createdPolls, "voted": votedPolls};
+            // console.log(createdPolls);
+            // console.log(votedPolls);
+
             res.cookie('userID', userID);
-            res.status('200').json('Authenticated');
+            res.status('200').json(userPolls);
             // console.log(userID, req.cookies);
         } else {
             res.status('401').json('Bad Authentication');
