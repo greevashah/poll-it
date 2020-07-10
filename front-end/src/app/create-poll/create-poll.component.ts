@@ -14,8 +14,15 @@ export class CreatePollComponent implements OnInit {
   // public option=[];
   public count: number = 0;
   public createForm: FormGroup;
+  public isChecked = false;
+  title = 'demo';
+  public exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
 
   @Output() sendErrorMessage = new EventEmitter<string>();
+
+  onChangeHour(event) {
+    console.log('event', event);
+  }
 
   get options(){
     return this.createForm.get('options') as FormArray

@@ -19,6 +19,8 @@ import { ResutlDisplayComponent } from './resutl-display/resutl-display.componen
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeDisplayComponent } from './home-display/home-display.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { HomeDisplayComponent } from './home-display/home-display.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgxChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSlideToggleModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     {
