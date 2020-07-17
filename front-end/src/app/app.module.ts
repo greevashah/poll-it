@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeDisplayComponent } from './home-display/home-display.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NgxChartsModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    NgxMatDatetimePickerModule
   ],
   providers: [
     {

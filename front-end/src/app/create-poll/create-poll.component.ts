@@ -1,20 +1,25 @@
 import { AuthServiceService } from './../auth-service.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output,ViewChild } from '@angular/core';
 import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 import { VotePollService } from '../vote-poll.service';
+import { ThemePalette } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-create-poll',
   templateUrl: './create-poll.component.html',
   styleUrls: ['./create-poll.component.css']
 })
+
 export class CreatePollComponent implements OnInit {
+  // @ViewChild('picker') picker: any;
+
   public question: string;
-  // public option=[];
   public count: number = 0;
   public createForm: FormGroup;
   public isChecked = false;
+  // public isCheckedDeadline = false;
   title = 'demo';
   public exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
 
@@ -38,11 +43,20 @@ export class CreatePollComponent implements OnInit {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       question: ['', Validators.required],
-      options: this.fb.array([])
+      options: this.fb.array([]),
       // options: new FormControl('')
+      timepicker: [false],
+      multiplechoice: [false],
+      isdeadline: [false],
+      eventDuration: [''] ,
+      deadline: new FormControl(new Date(2021,9,4,5,6,7)),
+      startTime:[''],
+      endTime:['']
     });
   }
+
   submitFunc(form: FormGroup){
+    console.log("Form value is : ");
     console.log(form.value);
     this.votePoll.createPoll(form.value).subscribe(res => {
       console.log('res:', res);
@@ -68,5 +82,19 @@ export class CreatePollComponent implements OnInit {
     document.querySelector('.showInputField').appendChild(row);
   }
 
+  onChange(value){
+    if (value.checked === true) {
+      this.isChecked = true;
+    } else {
+      this.isChecked = false;
+    }
+  }
+  // onChangeDeadline(value){
+  //   if(value.checked === true){
+  //     this.isCheckedDeadline = true;
+  //   } else {
+  //     this.isCheckedDeadline = false;
+  //   }
+  // }
 }
 // <input ngModel type="text" name="options" *ngIf="">
