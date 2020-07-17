@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var Poll = require('../models/poll');
+var TimePicker = require('../models/timepicker');
 var { onlyAuthenticated } = require('../middlewares/auth')
 
 var mongoose = require('mongoose');
@@ -29,6 +30,12 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res) => {
     try {
         await poll.save();
         console.log(poll);
+        const { start, end, eventduration } = req.body;
+        const milliseconds = ((new Date(start)) - (new Date(end)));
+        const halfHours = milliseconds / (60000*30);
+        const count = new Array(halfHours).fill(0); 
+        const timePicker = new TimePicker({code,start,end,eventduration,count});
+        console.log(timePicker);
         res.status(200).json(poll);
     } catch (err) {
         console.log(err);

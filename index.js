@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 
 var auth = require('./controllers/auth');
 var poll = require('./controllers/poll');
+var timePicker = require('./controllers/timepicker');
 
 
 app.use(cors({origin: [
@@ -28,6 +29,7 @@ app.get('/',(req,res)=>{
 
 app.use('/auth',auth);
 app.use('/poll',poll);
+app.use('/timePicker',timePicker);
 
 
 var server= app.listen(8080,(e)=>{
