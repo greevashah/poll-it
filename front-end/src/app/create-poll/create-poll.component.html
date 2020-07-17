@@ -1,28 +1,42 @@
 <h1>Create Poll</h1>
 <!-- #createForm="ngForm" -->
-<mat-slide-toggle [(ngModel)]="isChecked">Add Slot Picker</mat-slide-toggle>
 <form  [formGroup]="createForm" (ngSubmit)="submitFunc(createForm)">
     <div class="form-group">
+        {{ createForm.value | json }}
+        <mat-slide-toggle formControlName="timepicker" (change)="onChange($event)" >Add Slot Picker</mat-slide-toggle>
         <br>Name: <input formControlName="name" type="text" name="name" required>
         <br>Question: <input formControlName="question" type="text" name="question" required>
-        <br><br>
+        <br>
+        <mat-slide-toggle formControlName="multiplechoice" >Multiple Choice Question</mat-slide-toggle>
+        <br>
         Add Options <i class="fa fa-plus-circle" id="fa-1" (click)="addOption()"></i>
         <div formArrayName="options" *ngFor="let option of options.controls;let i=index">
             <input type="text" class="form-control" name="options" [formControlName]="i" >
             <br>
         </div>
+
         <div *ngIf="isChecked">
+          <br><br>
+          Event duration in hours:
+          <input placeholder="2"  [value]="'2'" formControlName="eventDuration" name="eventDuration" required>
           <br><br>
           Start Time:
           <input placeholder="10:00 am"  [value]="'10:00 am'" formControlName="startTime" name="startTime" [ngxTimepicker]="startpicker" required>
           <ngx-material-timepicker [defaultTime]="'10:00 am'" #startpicker></ngx-material-timepicker>
-          <br> <br>
           End Time:
           <input placeholder="10:00 pm"  [value]="'10:00 pm'" formControlName="endTime" name="endTime" [ngxTimepicker]="endpicker" required>
           <ngx-material-timepicker [defaultTime]="'10:00 pm'" #endpicker></ngx-material-timepicker>
           <br><br>
         </div>
-        <br><br>
+        <!-- <mat-slide-toggle formControlName="isdeadline" (change)="onChangeDeadline($event)">Is there a form deadline?</mat-slide-toggle> -->
+
+        <!-- <div *ngIf="isCheckedDeadline">
+            <mat-form-field>
+                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="deadline">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+            </mat-form-field>
+        </div> -->
         <button type="submit"> Submit</button>
     </div>
 </form>
