@@ -1,9 +1,12 @@
+import { TimePickerService } from './../time-picker.service';
 import { AuthServiceService } from './../auth-service.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Output,ViewChild } from '@angular/core';
 import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 import { VotePollService } from '../vote-poll.service';
-import { ThemePalette } from '@angular/material/core';
+import * as moment from 'moment';
+
+// import { ThemePalette } from '@angular/material/core';
 
 
 @Component({
@@ -18,10 +21,17 @@ export class CreatePollComponent implements OnInit {
   public question: string;
   public count: number = 0;
   public createForm: FormGroup;
-  public isChecked = false;
+  // public isChecked = false;
   // public isCheckedDeadline = false;
   title = 'demo';
   public exportTime = { hour: 7, minute: 15, meriden: 'PM', format: 24 };
+
+  public inlineDateTime: { chosenLabel: string; startDate: moment.Moment; endDate: moment.Moment };
+  public selected = {
+    startDate: moment(),
+    // endDate: moment('2015-11-26T05:30'),
+  };
+  // public myDateValue = this.selected.startDate.toDate();
 
   @Output() sendErrorMessage = new EventEmitter<string>();
 
@@ -36,7 +46,7 @@ export class CreatePollComponent implements OnInit {
   addOption(){
     return this.options.push(this.fb.control(''));
   }
-  constructor(private fb: FormBuilder, private votePoll: VotePollService, private Router:Router, private auth: AuthServiceService) {
+  constructor(private fb: FormBuilder, private votePoll: VotePollService, private Router:Router, private auth: AuthServiceService, private timePicker: TimePickerService) {
    }
 
   ngOnInit(): void {
@@ -46,21 +56,35 @@ export class CreatePollComponent implements OnInit {
       options: this.fb.array([]),
       // options: new FormControl('')
       timepicker: [false],
-      multiplechoice: [false],
-      isdeadline: [false],
-      eventDuration: [''] ,
-      deadline: new FormControl(new Date(2021,9,4,5,6,7)),
-      startTime:[''],
-      endTime:['']
+      multipleChoice: [false],
+      isDeadline: [false],
+      deadline: [''],
+      eventDuration: [1] ,
+      startTime: new FormControl(moment()),
+      endTime: new FormControl(moment())
     });
   }
 
   submitFunc(form: FormGroup){
     console.log("Form value is : ");
     console.log(form.value);
+    
     this.votePoll.createPoll(form.value).subscribe(res => {
       console.log('res:', res);
-      this.auth.created(res.code).subscribe(result => {
+      if(res.timepicker){
+        // is Time picker
+        var timepicker = {
+          "code": res.code,
+          "startTime": form.value.startTime,
+          "endTime": form.value.endTime,
+          "eventDuration": form.value.eventDuration
+        }
+        this.timePicker.createTimePicker(timepicker).subscribe(response => {
+          // Time picker route to be hit
+          console.log("Timepicker route hit successfully");
+        })
+      }
+      this.auth.created(res.code).subscribe( result => {
         console.log(result);
         var message = 'New poll created with code ' + res.code;
         console.log("message:",message);
@@ -82,12 +106,21 @@ export class CreatePollComponent implements OnInit {
     document.querySelector('.showInputField').appendChild(row);
   }
 
-  onChange(value){
-    if (value.checked === true) {
-      this.isChecked = true;
-    } else {
-      this.isChecked = false;
-    }
+  // onChange(value){
+  //   if (value.checked === true) {
+  //     this.isChecked = true;
+  //   } else {
+  //     this.isChecked = false;
+  //   }
+  // }
+
+  chosenDateTime(chosenDate: { chosenLabel: string; startDate: moment.Moment; endDate: moment.Moment }): void {
+    // console.log("Create form value is ", this.createForm.value)
+    this.createForm.controls['startTime'].setValue(chosenDate.startDate) ;
+    this.createForm.controls['endTime'].setValue(chosenDate.endDate) ;
+    const diffDays= chosenDate.endDate.diff(chosenDate.startDate, 'days') + 1 ;
+    this.createForm.controls['eventDuration'].setValue(diffDays) ;
+    this.inlineDateTime = chosenDate;
   }
   // onChangeDeadline(value){
   //   if(value.checked === true){
@@ -97,4 +130,3 @@ export class CreatePollComponent implements OnInit {
   //   }
   // }
 }
-// <input ngModel type="text" name="options" *ngIf="">

@@ -22,6 +22,8 @@ import { HomeDisplayComponent } from './home-display/home-display.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { NgxMatDatetimePickerModule } from '@angular-material-components/datetime-picker';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { NgxMatDatetimePickerModule } from '@angular-material-components/datetim
     BrowserAnimationsModule,
     MatSlideToggleModule,
     NgxMaterialTimepickerModule,
-    NgxMatDatetimePickerModule
+    NgxMatDatetimePickerModule,
+    NgxDaterangepickerMd.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     {

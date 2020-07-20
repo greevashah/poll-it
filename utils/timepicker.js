@@ -1,5 +1,12 @@
+// convert string time to seconds
+const stringToSeconds = ( stringTime ) => {
+    const res = stringTime.split(":").map(ele => Number(ele)); // Hours, Minutes
+    const seconds= res[0]*60*60 + res[1]*60
+    return seconds;
+}
+
 // returns duration from start to end in minutes 
-const findSlot = (start, end)=>{
+const findSlot = (start, end )=>{
     const durationMin = (end.getTime() - start.getTime())/(1000*60)
     return durationMin
 }
@@ -37,6 +44,7 @@ const resultSlot = (slidingWindow , presumArray) => {
 }
 
 module.exports = { 
+    stringToSeconds,
     findSlot,
     voteTimeslot,
     findPresum,

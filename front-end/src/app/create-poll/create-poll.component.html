@@ -1,42 +1,64 @@
-<h1>Create Poll</h1>
+
 <!-- #createForm="ngForm" -->
-<form  [formGroup]="createForm" (ngSubmit)="submitFunc(createForm)">
+<form id="create-poll-form" [formGroup]="createForm" (ngSubmit)="submitFunc(createForm)">
+    <h1>Create Poll</h1>
     <div class="form-group">
         {{ createForm.value | json }}
-        <mat-slide-toggle formControlName="timepicker" (change)="onChange($event)" >Add Slot Picker</mat-slide-toggle>
-        <br>Name: <input formControlName="name" type="text" name="name" required>
-        <br>Question: <input formControlName="question" type="text" name="question" required>
         <br>
-        <mat-slide-toggle formControlName="multiplechoice" >Multiple Choice Question</mat-slide-toggle>
-        <br>
+        Add Slot Picker <input type="checkbox" formControlName ="timepicker" > 
+        <!-- <mat-slide-toggle formControlName="timepicker" (change)="onChange($event)" >Add Slot Picker</mat-slide-toggle> -->
+        <br><br>Name: <input formControlName="name" type="text" name="name" required>
+        <br><br>Question: <input formControlName="question" type="text" name="question" required>
+        <br><br>
+        Multiple Choice Question <input type="checkbox" formControlName="multipleChoice">
+        <!-- <mat-slide-toggle formControlName="multipleChoice" >Multiple Choice Question</mat-slide-toggle> -->
+        <br><br>
         Add Options <i class="fa fa-plus-circle" id="fa-1" (click)="addOption()"></i>
         <div formArrayName="options" *ngFor="let option of options.controls;let i=index">
-            <input type="text" class="form-control" name="options" [formControlName]="i" >
             <br>
+            <input type="text" class="form-control" name="options" [formControlName]="i" >
         </div>
-
-        <div *ngIf="isChecked">
-          <br><br>
-          Event duration in hours:
-          <input placeholder="2"  [value]="'2'" formControlName="eventDuration" name="eventDuration" required>
-          <br><br>
-          Start Time:
-          <input placeholder="10:00 am"  [value]="'10:00 am'" formControlName="startTime" name="startTime" [ngxTimepicker]="startpicker" required>
-          <ngx-material-timepicker [defaultTime]="'10:00 am'" #startpicker></ngx-material-timepicker>
-          End Time:
-          <input placeholder="10:00 pm"  [value]="'10:00 pm'" formControlName="endTime" name="endTime" [ngxTimepicker]="endpicker" required>
-          <ngx-material-timepicker [defaultTime]="'10:00 pm'" #endpicker></ngx-material-timepicker>
-          <br><br>
+        <br><br>
+        <div *ngIf="createForm.value.timepicker">
+            <ngx-daterangepicker-material
+            name="inline-daterangepicker-auto"
+            [autoApply]="true"
+            [timePicker24Hour]="true"
+            [linkedCalendars]="true"
+            [startDate]="selected?.startDate"
+            [endDate]="selected?.startDate"
+            [minDate]="selected?.startDate"
+            [timePicker]="true"
+            [showDropdowns]="false"
+            [locale]="{ applyLabel: 'Done', firstDay: 1 , format: 'YYYY-MM-DDTHH:mm'}"
+            (chosenDate)="chosenDateTime($event)" >
+            </ngx-daterangepicker-material>
+            <br>
+            <div>Chosen date (after changes): {{ inlineDateTime | json }}</div>
+            <!-- Event duration in hours:
+            <input placeholder="2"  [value]="'2'" formControlName="eventDuration" name="eventDuration" required>
+            <br><br>
+            Start Time:
+            <input placeholder="10:00 am"  [value]="'10:00'" [format]="24" formControlName="startTime" name="startTime" [ngxTimepicker]="startpicker" required>
+            <ngx-material-timepicker [defaultTime]="'10:00'" #startpicker></ngx-material-timepicker>
+            End Time:
+            <input placeholder="10:00 pm"  [value]="'22:00'" [format]="24" formControlName="endTime" name="endTime" [ngxTimepicker]="endpicker" required>
+            <ngx-material-timepicker [defaultTime]="'22:00'" #endpicker></ngx-material-timepicker>
+            <br><br> -->
         </div>
+        <br>
         <!-- <mat-slide-toggle formControlName="isdeadline" (change)="onChangeDeadline($event)">Is there a form deadline?</mat-slide-toggle> -->
-
-        <!-- <div *ngIf="isCheckedDeadline">
-            <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="deadline">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
-            </mat-form-field>
-        </div> -->
+        Poll Deadline <input type="checkbox" formControlName="isDeadline">
+        <br><br>
+        <div *ngIf="createForm.value.isDeadline">
+            <input type="text" placeholder="Choose deadline date" formControlName="deadline" bsDatepicker format="dd/mm/yyyy">
+        </div>
+        <br><br>
         <button type="submit"> Submit</button>
     </div>
 </form>
+<!-- <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="deadline">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+    </mat-form-field> -->

@@ -2,19 +2,29 @@ const express = require('express');
 const router = express.Router();
 
 const TimePicker = require('../models/timepicker');
+const TimePickerUtil = require('../utils/timepicker')
 
 const { onlyAuthenticated } = require('../middlewares/auth');
 const { voteTimeslot } = require('../utils/timepicker');
 
 router.post('/createTimePicker', onlyAuthenticated ,async (req,res) => {
     // ToDo formatting of req.body
-    const { code, start, end, eventduration} = req.body;
-    const milliseconds = ((new Date(start)) - (new Date(end)));
-    const halfHours = milliseconds / (60000*30);
-    const count = new Array(halfHours).fill(0);
-    
-    const timePicker = new TimePicker({code,start,end,eventduration,count});
+    console.log("Time picker route hit")
+    console.log(req.body);
+    const code = req.body.code;
+    // const timePicker = new TimePicker({code, start, end, eventduration,count});
 
+    const eventDuration = Number(req.body.eventDuration) ;
+    const startTime = new Date(req.body.startTime);
+    const endTime = new Date(req.body.endTime)
+    
+    const diffMilliSeconds = (endTime.getTime() - startTime.getTime());
+    // console.log("Difference in Second: ", diffSeconds);
+    const halfHours = diffMilliSeconds / (1000*60*30);
+    console.log("halfhours: ", halfHours);
+    const count = new Array(halfHours).fill(0); 
+    const timePicker = new TimePicker({ code, startTime, endTime, eventDuration, count });
+    console.log(timePicker);
     try {
         await timePicker.save();
         console.log(timePicker);

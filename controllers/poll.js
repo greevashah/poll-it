@@ -5,6 +5,8 @@ var Poll = require('../models/poll');
 var TimePicker = require('../models/timepicker');
 var { onlyAuthenticated } = require('../middlewares/auth')
 
+var TimePickerUtil = require('../utils/timepicker')
+
 var mongoose = require('mongoose');
 
 const makeCode = (length)=> {
@@ -19,23 +21,42 @@ const makeCode = (length)=> {
  
 router.post('/createPoll', onlyAuthenticated ,async (req,res) => {
     // ToDo formatting of req.body
-    const { name, question, options } = req.body;
+    console.log("Create Poll Link");
+    console.log(req.body);
+    const { name, question, options, timepicker, multipleChoice, isDeadline } = req.body;
+
     const code = makeCode(5);
     console.log("Code is: ", code);
     const creator = req.cookies.userID;
-    const options_final = options.map(option=>{
-        return [option,[]]
-    })
-    const poll = new Poll({code,name,question,option:options_final,creator});
+    const options_final = options.map(option => [option,[]] )
+
+    // if(timepicker) {
+    //     console.log("Timepicker code")
+    //     const eventDuration = Number(req.body.eventDuration) ;
+    //     const startTimeSeconds= TimePickerUtil.stringToSeconds(req.body.startTime);
+    //     const endTimeSeconds= TimePickerUtil.stringToSeconds(req.body.endTime)
+        
+    //     const diffSeconds = (endTimeSeconds - startTimeSeconds);
+    //     // console.log("Difference in Second: ", diffSeconds);
+    //     const halfHours = diffSeconds / (60*30);
+    //     // console.log("halfhours: ", halfHours);
+    //     const count = new Array(halfHours).fill(0); 
+    //     const timePicker = new TimePicker({ code, startTime: startTimeSeconds, endTime: endTimeSeconds, eventDuration, count });
+    //     console.log(timePicker);
+    // }
+
+    let poll;
+
+    if(isDeadline) {
+        const deadline = new Date(req.body.deadline);
+        poll = new Poll({code,name,question,option:options_final,creator,timepicker,multipleChoice,isDeadline, deadline});
+    }
+    else{
+        poll = new Poll({code,name,question,option:options_final,creator,timepicker,multipleChoice,isDeadline});
+    }
     try {
         await poll.save();
         console.log(poll);
-        const { start, end, eventduration } = req.body;
-        const milliseconds = ((new Date(start)) - (new Date(end)));
-        const halfHours = milliseconds / (60000*30);
-        const count = new Array(halfHours).fill(0); 
-        const timePicker = new TimePicker({code,start,end,eventduration,count});
-        console.log(timePicker);
         res.status(200).json(poll);
     } catch (err) {
         console.log(err);

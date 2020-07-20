@@ -8,9 +8,10 @@ let PollSchema=({
     name: {type: String},
     question: {type:String},
     option: {type: Array, "default" : [] },
+    isDeadline: {type: Boolean}, //true or false
     deadline: {type: Date},
-    multipleChoice: {type: String}, //yes or no
-    timepicker: {type: String}  //yes or no
+    multipleChoice: {type: Boolean}, //true or false
+    timepicker: {type: Boolean}  //true or false
 });
 
 module.exports = mongoose.model('Poll', PollSchema);
