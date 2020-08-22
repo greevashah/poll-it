@@ -66,6 +66,7 @@ router.post('/vote/:code/:val',onlyAuthenticated, async(req,res)=>{
     }
 });
 
+// TO DO CHANGES HERE
 // View Poll with the given code
 router.get('/result/:code',onlyAuthenticated, async (req,res)=>{
     try {
