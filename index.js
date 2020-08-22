@@ -8,11 +8,11 @@ var auth = require('./controllers/auth');
 var poll = require('./controllers/poll');
 var timePicker = require('./controllers/timepicker');
 
+require('dotenv').config()
 
 app.use(cors({origin: [
     "http://localhost:4200"
-  ], credentials: true}));
-
+], credentials: true}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
@@ -37,7 +37,7 @@ var server= app.listen(8080,(e)=>{
     var port= server.address().port;
     console.log("Add:", host);
     console.log("Port", port);
-    mongoose.connect("mongodb+srv://root:1234@poll-it-bwvcs.mongodb.net/test?retryWrites=true&w=majority", {
+    mongoose.connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -47,5 +47,3 @@ var server= app.listen(8080,(e)=>{
         else console.log('Connected');
     });
 });
-
-// mongodb+srv://root:<password>@poll-it-bwvcs.mongodb.net/test?retryWrites=true&w=majority
