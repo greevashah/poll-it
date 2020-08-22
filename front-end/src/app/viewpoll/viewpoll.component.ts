@@ -34,6 +34,7 @@ export class ViewpollComponent implements OnInit {
     this.multipleChoice = votePoll.multipleChoice;
     this.deadline = votePoll.deadline;
     console.log("Am I getting called twice ?");
+
     if (this.timepicker) {
       this.timePicker.viewTimePicker(this.code).subscribe(Response => {
         this.timePicker.initialise(Response);
@@ -44,6 +45,7 @@ export class ViewpollComponent implements OnInit {
         console.log("VotePoll::", Response);
       });
     }
+    
    }
 
   ngOnInit(): void {

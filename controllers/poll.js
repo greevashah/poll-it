@@ -20,7 +20,6 @@ const makeCode = (length)=> {
 }
  
 router.post('/createPoll', onlyAuthenticated ,async (req,res) => {
-    // ToDo formatting of req.body
     console.log("Create Poll Link");
     console.log(req.body);
     const { name, question, options, timepicker, multipleChoice, isDeadline } = req.body;
@@ -29,21 +28,6 @@ router.post('/createPoll', onlyAuthenticated ,async (req,res) => {
     console.log("Code is: ", code);
     const creator = req.cookies.userID;
     const options_final = options.map(option => [option,[]] )
-
-    // if(timepicker) {
-    //     console.log("Timepicker code")
-    //     const eventDuration = Number(req.body.eventDuration) ;
-    //     const startTimeSeconds= TimePickerUtil.stringToSeconds(req.body.startTime);
-    //     const endTimeSeconds= TimePickerUtil.stringToSeconds(req.body.endTime)
-        
-    //     const diffSeconds = (endTimeSeconds - startTimeSeconds);
-    //     // console.log("Difference in Second: ", diffSeconds);
-    //     const halfHours = diffSeconds / (60*30);
-    //     // console.log("halfhours: ", halfHours);
-    //     const count = new Array(halfHours).fill(0); 
-    //     const timePicker = new TimePicker({ code, startTime: startTimeSeconds, endTime: endTimeSeconds, eventDuration, count });
-    //     console.log(timePicker);
-    // }
 
     let poll;
 

@@ -82,15 +82,24 @@ export class CreatePollComponent implements OnInit {
         this.timePicker.createTimePicker(timepicker).subscribe(response => {
           // Time picker route to be hit
           console.log("Timepicker route hit successfully");
+          this.auth.created(res.code).subscribe( result => {
+            console.log(result);
+            var message = 'New poll created with code ' + res.code;
+            console.log("message:",message);
+            this.sendErrorMessage.emit(message);
+            this.Router.navigate(['home']);
+          });
         })
       }
-      this.auth.created(res.code).subscribe( result => {
-        console.log(result);
-        var message = 'New poll created with code ' + res.code;
-        console.log("message:",message);
-        this.sendErrorMessage.emit(message);
-        this.Router.navigate(['home']);
-      });
+      else{
+        this.auth.created(res.code).subscribe( result => {
+          console.log(result);
+          var message = 'New poll created with code ' + res.code;
+          console.log("message:",message);
+          this.sendErrorMessage.emit(message);
+          this.Router.navigate(['home']);
+        });
+      }
     }, err => {
         console.log('error:', err);
     });
