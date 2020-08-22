@@ -7,10 +7,22 @@ import { HttpClient } from '@angular/common/http';
 export class TimePickerService {
 
   private url = `http://localhost:8080/timePicker`;
+  public startTime:Date;
+  public endTime:Date;
+  public eventDuration: number;
+  public countArray = [];
   constructor(private http: HttpClient) { }
 
-  viewTimePicker(value){
-    return this.http.get<any>(`${this.url}/getTimePicker/${value}`);
+  initialise(value) {
+    this.startTime = value.startTime;
+    this.endTime = value.endTime;
+    this.eventDuration = value.eventDuration;
+    this.countArray = value.countArray;
+    console.log(value);
+  }
+
+  viewTimePicker(code){
+    return this.http.get<any>(`${this.url}/getTimePicker`, code );
   }
 
   createTimePicker(value){
