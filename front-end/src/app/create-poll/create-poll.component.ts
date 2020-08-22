@@ -68,7 +68,7 @@ export class CreatePollComponent implements OnInit {
   submitFunc(form: FormGroup){
     console.log("Form value is : ");
     console.log(form.value);
-    
+
     this.votePoll.createPoll(form.value).subscribe(res => {
       console.log('res:', res);
       if(res.timepicker){
@@ -106,14 +106,6 @@ export class CreatePollComponent implements OnInit {
     document.querySelector('.showInputField').appendChild(row);
   }
 
-  // onChange(value){
-  //   if (value.checked === true) {
-  //     this.isChecked = true;
-  //   } else {
-  //     this.isChecked = false;
-  //   }
-  // }
-
   chosenDateTime(chosenDate: { chosenLabel: string; startDate: moment.Moment; endDate: moment.Moment }): void {
     // console.log("Create form value is ", this.createForm.value)
     this.createForm.controls['startTime'].setValue(chosenDate.startDate) ;
@@ -122,11 +114,4 @@ export class CreatePollComponent implements OnInit {
     this.createForm.controls['eventDuration'].setValue(diffDays) ;
     this.inlineDateTime = chosenDate;
   }
-  // onChangeDeadline(value){
-  //   if(value.checked === true){
-  //     this.isCheckedDeadline = true;
-  //   } else {
-  //     this.isCheckedDeadline = false;
-  //   }
-  // }
 }

@@ -12,6 +12,13 @@
             {{ op[0] }}
             <br>
         </div>
+        {{timepicker}}
+        {{ startTime }}
+        {{ endTime }}
+        <div *ngIf="timepicker">
+          {{ startTime }}
+          {{ endTime }}
+        </div>
         <br>
         <!-- <button (click)="pollForm.reset()" >Reset</button> -->
         <button type="submit"> Submit</button>

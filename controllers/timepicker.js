@@ -20,14 +20,12 @@ router.post('/createTimePicker', onlyAuthenticated ,async (req,res) => {
     
     const diffMilliSeconds = (endTime.getTime() - startTime.getTime());
     // console.log("Difference in Second: ", diffSeconds);
-    const halfHours = diffMilliSeconds / (1000*60*30);
+    const halfHours = parseInt(diffMilliSeconds / (1000*60*30));
     console.log("halfhours: ", halfHours);
     const count = new Array(halfHours).fill(0); 
     const timePicker = new TimePicker({ code, startTime, endTime, eventDuration, count });
-    console.log(timePicker);
     try {
         await timePicker.save();
-        console.log(timePicker);
         res.status(200).json(timePicker);
     } catch (err) {
         console.log(err);
@@ -49,11 +47,12 @@ router.post('/pickSlot',onlyAuthenticated,async(req,res) => {
     }
 })
 
-router.post('/getTimePicker',onlyAuthenticated,async(req,res) => {
+router.get('/getTimePicker',onlyAuthenticated,async(req,res) => {
     try {
-        const code = req.body.code; 
+        const code = req.query.code; 
         const timepicker = await TimePicker.findOne({code:code}).exec();
-        console.log(timepicker);
+        console.log(req)
+        console.log("Yes i am getting pinged", code);
         res.status(200).json(timepicker);
     } catch (err) {
         console.log(err);
