@@ -49,10 +49,10 @@ router.post('/pickSlot',onlyAuthenticated,async(req,res) => {
 
 router.get('/getTimePicker',onlyAuthenticated,async(req,res) => {
     try {
+        // console.log("Request is:::::",req.query)
         const code = req.query.code; 
         const timepicker = await TimePicker.findOne({code:code}).exec();
-        console.log(req)
-        console.log("Yes i am getting pinged", code);
+        // console.log("Yes i am getting pinged", code);
         res.status(200).json(timepicker);
     } catch (err) {
         console.log(err);

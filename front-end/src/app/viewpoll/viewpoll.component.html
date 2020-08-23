@@ -12,14 +12,25 @@
             {{ op[0] }}
             <br>
         </div>
-        {{timepicker}}
-        {{ startTime }}
-        {{ endTime }}
+        {{ timepicker }}
         <div *ngIf="timepicker">
-          {{ startTime }}
-          {{ endTime }}
+            <ngx-daterangepicker-material
+            name="inline-daterangepicker-auto"
+            [autoApply]="true"
+            [timePicker24Hour]="true"
+            [linkedCalendars]="true"
+            [startDate]= "selected?.start"
+            [endDate]="selected?.end"
+            [minDate]="selected?.start"
+            [maxDate]="selected?.end"
+            [timePicker]="true"
+            [showDropdowns]="false"
+            [locale]="{ applyLabel: 'Done', firstDay: 1 , format: 'YYYY-MM-DDTHH:mm'}"
+            (chosenDate)="chosenDateTime($event)" >
+            </ngx-daterangepicker-material>
         </div>
         <br>
+
         <!-- <button (click)="pollForm.reset()" >Reset</button> -->
         <button type="submit"> Submit</button>
     </div>

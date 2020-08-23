@@ -1,7 +1,7 @@
 import { TimePickerService } from './../time-picker.service';
 import { AuthServiceService } from './../auth-service.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, EventEmitter, Output,ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormGroup, FormControl,FormArray, FormBuilder, Validators } from '@angular/forms';
 import { VotePollService } from '../vote-poll.service';
 import * as moment from 'moment';
@@ -46,6 +46,7 @@ export class CreatePollComponent implements OnInit {
   addOption(){
     return this.options.push(this.fb.control(''));
   }
+  
   constructor(private fb: FormBuilder, private votePoll: VotePollService, private Router:Router, private auth: AuthServiceService, private timePicker: TimePickerService) {
    }
 
@@ -82,24 +83,25 @@ export class CreatePollComponent implements OnInit {
         this.timePicker.createTimePicker(timepicker).subscribe(response => {
           // Time picker route to be hit
           console.log("Timepicker route hit successfully");
-          this.auth.created(res.code).subscribe( result => {
-            console.log(result);
-            var message = 'New poll created with code ' + res.code;
-            console.log("message:",message);
-            this.sendErrorMessage.emit(message);
-            this.Router.navigate(['home']);
-          });
+          // this.auth.created(res.code).subscribe( result => {
+          //   console.log(result);
+          //   var message = 'New poll created with code ' + res.code;
+          //   console.log("message:",message);
+          //   this.sendErrorMessage.emit(message);
+          //   this.Router.navigate(['home']);
+          // });
         })
       }
       else{
-        this.auth.created(res.code).subscribe( result => {
-          console.log(result);
-          var message = 'New poll created with code ' + res.code;
-          console.log("message:",message);
-          this.sendErrorMessage.emit(message);
-          this.Router.navigate(['home']);
-        });
+        
       }
+      this.auth.created(res.code).subscribe( result => {
+        console.log(result);
+        var message = 'New poll created with code ' + res.code;
+        console.log("message:",message);
+        this.sendErrorMessage.emit(message);
+        this.Router.navigate(['home']);
+      });
     }, err => {
         console.log('error:', err);
     });

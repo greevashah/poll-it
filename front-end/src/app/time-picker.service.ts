@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TimePickerService {
 
-  private url = `http://localhost:8080/timePicker`;
+  private url = `http://localhost:8080/timepicker`;
   public startTime:Date;
   public endTime:Date;
   public eventDuration: number;
@@ -22,7 +22,7 @@ export class TimePickerService {
   }
 
   viewTimePicker(code){
-    return this.http.get<any>(`${this.url}/getTimePicker`, code );
+    return this.http.get<any>(`${this.url}/getTimePicker`, {params: {code: code} } );
   }
 
   createTimePicker(value){

@@ -22,7 +22,8 @@ export class JoinPollComponent implements OnInit {
     this.code = value.code;
     console.log(value.code);
     this.votePoll.viewPoll(value.code).subscribe(res => {
-      // console.log('In join, res:', res);
+      console.log('In join, res:', res);
+      // res is an array [poll doc obj, timepicker doc object]
       this.auth.checkVoted(value.code).subscribe( response =>{
         if(response == "VOTED"){
           console.log("Already voted");

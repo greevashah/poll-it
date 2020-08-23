@@ -29,7 +29,7 @@ app.get('/',(req,res)=>{
 
 app.use('/auth',auth);
 app.use('/poll',poll);
-app.use('/timePicker',timePicker);
+app.use('/timepicker',timePicker);
 
 
 var server= app.listen(8080,(e)=>{
